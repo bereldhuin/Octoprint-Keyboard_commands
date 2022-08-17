@@ -1,0 +1,61 @@
+<template id='template-sfr-variables'>
+  <span><strong>Variables</strong></span>
+  &emsp;<button class="btn btn-default" data-bind="css: lockedClass, click: toggleLock"></button>
+  &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
+  <div data-bind="visible: showingInfo">
+    <hr>
+    <p><b>Variable Names and Defaults</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
+    <ul>
+      <li>
+        <button class="btn btn-default" data-bind="css: lockedClass"></button> locks/unlocks the textfields and buttons.
+      </li>
+      <li>
+        <input placeholder="Enter key..." /> allows you to create a new variable.
+        This new variable is immediately available for use in commands.
+      </li>
+      <li>
+        <input placeholder="Enter value..." /> sets the new variable's default value.
+      </li>
+      <li>
+        <button class="btn btn-primary">{{ _('+') }}</button> adds the new variable. Duplicates not permitted.
+      </li>
+      <li>
+        <input placeholder="Edit value..." /> updates the default variable values.
+      </li>
+      <li>
+        <button class="btn btn-danger">{{ _('-') }}</button> deletes the preceeding variable.
+      </li>
+    </ul>
+    <p><b>Variables</b> provide flexibility when defining printer commands. The variables defined here will be available to be targeted in
+      <b>Commands</b>><b>Command</b>><b>Variables</b> sections and modified by 'save_vars' and 'listen_vars' commands. They will be consumed in 'printer' commands.
+    </p>
+    <hr>
+  </div>
+  <dl>
+    <dd>
+      <table>
+        <tbody>
+          <tr>
+            <td><input placeholder="Enter key..." data-bind="textInput: newVariableKey, attr: {disabled: locked}" /></td>
+            <td><input placeholder="Enter value..." data-bind="textInput: newVariableValue, attr: {disabled: locked}" /></td>
+            <td>
+              <button class="btn btn-primary" data-bind="click: addVariable, attr: {disabled: locked}">{{ _('+') }}</button>
+            </td>
+            <td data-bind="visible: dupeDetected">
+              <span><strong>No Duplicates Keys!</strong></span>
+            </td>
+          </tr>
+        </tbody>
+        <tbody data-bind="foreach: variables">
+          <tr>
+            <td data-bind="text: $data.key"></td>
+            <td><input placeholder="Edit value..." data-bind="textInput: value, attr: {disabled: $parent.locked}" /></td>
+            <td>
+              <button class="btn btn-danger" data-bind="click: $parent.deleteVariable, attr: {disabled: $parent.locked}">{{ _('-') }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </dd>
+  <dl>
+</template>
