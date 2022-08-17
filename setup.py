@@ -14,11 +14,11 @@ plugin_package = "octoprint_keyboard_commands"
 plugin_name = "OctoPrint-Keyboard_commands"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.2.6"
+plugin_version = "1.0.0"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = """Plugin to enable controlling a connected 3D printer with a USB keyboard"""
+plugin_description = """Plugin to enable controlling a connected 3D printer with a USB keyboard (forked from Barrett Fords' USB Keyboard plugin"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
 plugin_author = "Bereldhuin"
