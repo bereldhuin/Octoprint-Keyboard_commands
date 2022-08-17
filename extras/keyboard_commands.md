@@ -58,7 +58,7 @@ compatibility:
   # OctoPrint versions being supported.
 
   octoprint:
-  - 1.2.0
+  - 1.8.0
 
   # List of compatible operating systems
   #
