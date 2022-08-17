@@ -10,9 +10,9 @@ license: AGPLv3
 # TODO
 date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
 
-homepage: https://github.com/barrettford/OctoPrint-Usb_keyboard
-source: https://github.com/barrettford/OctoPrint-Usb_keyboard
-archive: https://github.com/barrettford/OctoPrint-Usb_keyboard/archive/master.zip
+homepage: https://github.com/bereldhuin/Octoprint-Keyboard_commands
+source: https://github.com/bereldhuin/Octoprint-Keyboard_commands
+archive: https://github.com/bereldhuin/Octoprint-Keyboard_commands/archive/master.zip
 
 # TODO
 # Set this to true if your plugin uses the dependency_links setup parameter to include
