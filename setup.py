@@ -24,7 +24,7 @@ plugin_description = """Plugin to enable controlling a connected 3D printer with
 plugin_author = "Bereldhuin"
 
 # The plugin's author's mail address.
-plugin_author_email = "barrettford@gmail.com"
+plugin_author_email = "fprost@gmail.com"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
 plugin_url = "https://github.com/bereldhuin/Octoprint-Keyboard_commands"

@@ -956,7 +956,7 @@ class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
 
         # version check: github repository
         type="github_release",
-        user="barrettford",
+        user="bereldhuin",
         repo="OctoPrint-Usb_keyboard",
         current=self._plugin_version,
 
