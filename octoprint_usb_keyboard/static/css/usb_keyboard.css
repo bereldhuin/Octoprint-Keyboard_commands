@@ -1,7 +1,7 @@
 /* TODO: Have your plugin's CSS files generated to here. */
 	
 
-/*#settings_plugin_usb_keyboard button#keyboardKey {
+/*#settings_plugin_keyboard_commands button#keyboardKey {
   transition-duration: 0.4s;
   text-align: center;
   border-radius: 12px;
@@ -12,15 +12,15 @@
 
 
 
-#settings_plugin_usb_keyboard table#profileTable {
+#settings_plugin_keyboard_commands table#profileTable {
   text-align: center;
 }
 
-#settings_plugin_usb_keyboard select.profileSelect {
+#settings_plugin_keyboard_commands select.profileSelect {
   font-size: large;
 }
 
-#settings_plugin_usb_keyboard div.infoDiv {
+#settings_plugin_keyboard_commands div.infoDiv {
   float:right;
   position:absolute;
   right:0;
@@ -31,27 +31,27 @@
 }
 
 
-#settings_plugin_usb_keyboard select {
+#settings_plugin_keyboard_commands select {
   width:18ch;
   vertical-align:middle;
   margin-bottom:0px;
 }
 
-/*#settings_plugin_usb_keyboard td {
+/*#settings_plugin_keyboard_commands td {
   display:table-cell;
 }*/
 
-#settings_plugin_usb_keyboard .sliderCell tr td {
+#settings_plugin_keyboard_commands .sliderCell tr td {
   height: 100px;
   padding: 50px;
 }
 
-/*#settings_plugin_usb_keyboard .spacerCell tr td {
+/*#settings_plugin_keyboard_commands .spacerCell tr td {
 
 
 }*/
 
-#settings_plugin_usb_keyboard .keyboardTable td {
+#settings_plugin_keyboard_commands .keyboardTable td {
 /*  border: 1px solid #ddd;*/
   overflow: hidden;
 /*  display: table-column;*/
@@ -62,54 +62,54 @@
   text-align:center;
 }
 
-#settings_plugin_usb_keyboard table.commandTable {
+#settings_plugin_keyboard_commands table.commandTable {
   text-align:left;
 }
 
-#settings_plugin_usb_keyboard button.keyboardKey {
+#settings_plugin_keyboard_commands button.keyboardKey {
   overflow: hidden;
   white-space: normal;
   padding: 0; 
   margin: 0;
 }
 
-#settings_plugin_usb_keyboard .keyboardTable {
+#settings_plugin_keyboard_commands .keyboardTable {
   table-layout:fixed;
   vertical-align:middle;
   text-align:center;
 }
 /*
-#settings_plugin_usb_keyboard .keyboardSpacer {
+#settings_plugin_keyboard_commands .keyboardSpacer {
   width:0px;
 }*/
 
-#settings_plugin_usb_keyboard li {
+#settings_plugin_keyboard_commands li {
   vertical-align:middle;
 }
 
-#settings_plugin_usb_keyboard input {
+#settings_plugin_keyboard_commands input {
   width:18ch;   
 }
 
-#settings_plugin_usb_keyboard input.temperature {
+#settings_plugin_keyboard_commands input.temperature {
   width:4ch;   
 }
 
-#settings_plugin_usb_keyboard input.centered {
+#settings_plugin_keyboard_commands input.centered {
   text-align:center;
 }
 
-#settings_plugin_usb_keyboard input.gcodeLine {
+#settings_plugin_keyboard_commands input.gcodeLine {
   width:30ch;   
 }
 
-#settings_plugin_usb_keyboard textarea.profileDescription {
+#settings_plugin_keyboard_commands textarea.profileDescription {
   overflow: auto;
   width:70ch;
   resize: none;
 }
 
-#settings_plugin_usb_keyboard div.keyboardDataStream {
+#settings_plugin_keyboard_commands div.keyboardDataStream {
   text-align: right;
   border-radius: 6px;
   border: 1px solid rgba(0,0,0,0.3);

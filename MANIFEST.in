@@ -1,4 +1,4 @@
 include README.md
-recursive-include octoprint_usb_keyboard/templates *
-recursive-include octoprint_usb_keyboard/translations *
-recursive-include octoprint_usb_keyboard/static *
+recursive-include octoprint_keyboard_commands/templates *
+recursive-include octoprint_keyboard_commands/translations *
+recursive-include octoprint_keyboard_commands/static *

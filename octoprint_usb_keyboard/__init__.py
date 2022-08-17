@@ -9,11 +9,11 @@ import json
 import time
 import os
 import uuid
-from .usb_keyboard.util import traverse_modify
-from .usb_keyboard.listener import KeyboardListenerThread
+from .keyboard_commands.util import traverse_modify
+from .keyboard_commands.listener import KeyboardListenerThread
 from octoprint.events import eventManager
 
-class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
+class Keyboard_commandsPlugin(octoprint.plugin.StartupPlugin,
                          octoprint.plugin.ShutdownPlugin,
                          octoprint.plugin.SettingsPlugin,
                          octoprint.plugin.SimpleApiPlugin,
@@ -451,7 +451,7 @@ class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
     self.octoprint_last_command = None
     self.octoprint_last_command_presses = 0
 
-    eventManager().subscribe("plugin_usb_keyboard_key_event", self._key_event)
+    eventManager().subscribe("plugin_keyboard_commands_key_event", self._key_event)
 
     self.listener = KeyboardListenerThread('USB Keyboard Listener Thread', self._device_path)
     self.listener.start()
@@ -894,7 +894,7 @@ class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
     return dict(
       js=[
       # Main Viewmodel
-      "js/usb_keyboard.js",
+      "js/keyboard_commands.js",
       # Helpful interfaces for Viewmodels
       "js/helper_interfaces.js",
       # Viewmodels
@@ -931,8 +931,8 @@ class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
     ],
       # clientjs=['js/requre.js'],
       # jsclient=['js/requre.js'],
-      css=["css/usb_keyboard.css"],
-      # less=["less/usb_keyboard.less"]
+      css=["css/keyboard_commands.css"],
+      # less=["less/keyboard_commands.less"]
     )
 
   ##~~ TemplatePlugin mixin
@@ -950,14 +950,14 @@ class Usb_keyboardPlugin(octoprint.plugin.StartupPlugin,
     # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
     # for details.
     return dict(
-      usb_keyboard=dict(
-        displayName="Usb_keyboard Plugin",
+      keyboard_commands=dict(
+        displayName="Keyboard_commands Plugin",
         displayVersion=self._plugin_version,
 
         # version check: github repository
         type="github_release",
         user="bereldhuin",
-        repo="OctoPrint-Usb_keyboard",
+        repo="OctoPrint-Keyboard_commands",
         current=self._plugin_version,
 
         # update method: pip
@@ -982,7 +982,7 @@ def register_custom_events(*args, **kwargs):
   return ["key_event"]
 
 def __plugin_load__():
-  plugin = Usb_keyboardPlugin()
+  plugin = Keyboard_commandsPlugin()
 
   global __plugin_implementation__
   __plugin_implementation__ = plugin

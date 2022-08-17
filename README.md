@@ -1,4 +1,4 @@
-# OctoPrint-Usb_keyboard
+# OctoPrint-Keyboard_commands
 
 Enables users to use a USB keyboard to control their printer through Octoprint.
 

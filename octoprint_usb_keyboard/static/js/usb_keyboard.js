@@ -1,5 +1,5 @@
 /*
- * View model for OctoPrint-Usb_keyboard
+ * View model for OctoPrint-Keyboard_commands
  *
  * Author: Bereldhuin
  * License: AGPLv3
@@ -8,7 +8,7 @@
 var CURRENT_KEY = ko.observable(null)
 
 $(function () {
-  function Usb_keyboardViewModel(parameters) {
+  function Keyboard_commandsViewModel(parameters) {
     var self = this;
     Expandable.call(self, "settings", ko.observable(true))
     ShowsInfo.call(self)
@@ -116,9 +116,9 @@ $(function () {
       self.configuringDevice(!self.configuringDevice())
 
       if (self.configuringDevice()) {
-        OctoPrint.simpleApiCommand('usb_keyboard', 'query_devices', {});
+        OctoPrint.simpleApiCommand('keyboard_commands', 'query_devices', {});
         console.log("Turning on listening...")
-        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "start" });
+        OctoPrint.simpleApiCommand('keyboard_commands', 'active_listening', { "action": "start" });
         $('#UsbDeviceConfigModal').modal('show');
       }
       else {
@@ -129,7 +129,7 @@ $(function () {
     self.changeDevicePath = function () {
       if (self.devicePath() != self.trialDevicePath()) {
         self.devicePath(self.trialDevicePath())
-        OctoPrint.simpleApiCommand('usb_keyboard', 'change_device_path', { "device_path": self.devicePath() });
+        OctoPrint.simpleApiCommand('keyboard_commands', 'change_device_path', { "device_path": self.devicePath() });
       }
 
     }
@@ -166,49 +166,49 @@ $(function () {
     self.devicePathOptions = ko.observableArray()
 
     self.onBeforeBinding = function () {
-      // console.log("Settings", self.settingsViewModel.settings.plugins.usb_keyboard)
+      // console.log("Settings", self.settingsViewModel.settings.plugins.keyboard_commands)
 
-      self.activeProfileName = self.settingsViewModel.settings.plugins.usb_keyboard.active_profile;
-      self.profiles = self.settingsViewModel.settings.plugins.usb_keyboard.profiles
-      self.devicePath = self.settingsViewModel.settings.plugins.usb_keyboard.device_path
+      self.activeProfileName = self.settingsViewModel.settings.plugins.keyboard_commands.active_profile;
+      self.profiles = self.settingsViewModel.settings.plugins.keyboard_commands.profiles
+      self.devicePath = self.settingsViewModel.settings.plugins.keyboard_commands.device_path
 
 
       $("#UsbDeviceConfigModal").on('hidden', self.configureDevice);
-      $('#settings_plugin_usb_keyboard_link > a').on('click', function () {
+      $('#settings_plugin_keyboard_commands_link > a').on('click', function () {
         console.log("Turning on listening...")
-        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "start" });
+        OctoPrint.simpleApiCommand('keyboard_commands', 'active_listening', { "action": "start" });
       });
     }
 
     self.onSettingsShown = function () {
       // console.log("Turning on listening...")
-      // OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"start"});
+      // OctoPrint.simpleApiCommand('keyboard_commands', 'active_listening', {"action":"start"});
     }
 
     self.onSettingsBeforeSave = function () {
-      // console.log("Settings saving", self.settingsViewModel.settings.plugins.usb_keyboard)
+      // console.log("Settings saving", self.settingsViewModel.settings.plugins.keyboard_commands)
 
       console.log("Turning off listening... 1")
-      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "stop" });
+      OctoPrint.simpleApiCommand('keyboard_commands', 'active_listening', { "action": "stop" });
 
       // TODO: remove duplicate profile names
-      // self.settingsViewModel.settings.plugins.usb_keyboard.profiles = self.profiles;
+      // self.settingsViewModel.settings.plugins.keyboard_commands.profiles = self.profiles;
     }
 
 
     self.onSettingsHidden = function () {
-      // console.log("Settings closed", self.settingsViewModel.settings.plugins.usb_keyboard)
+      // console.log("Settings closed", self.settingsViewModel.settings.plugins.keyboard_commands)
 
       console.log("Turning off listening... 2")
-      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "stop" });
+      OctoPrint.simpleApiCommand('keyboard_commands', 'active_listening', { "action": "stop" });
 
-      $('#settings_plugin_usb_keyboard button.fa-caret-down').trigger('click'); // Contract all expansions
-      $('#settings_plugin_usb_keyboard button.fa-info-circle').trigger('click'); // Hide all info
+      $('#settings_plugin_keyboard_commands button.fa-caret-down').trigger('click'); // Contract all expansions
+      $('#settings_plugin_keyboard_commands button.fa-info-circle').trigger('click'); // Hide all info
     }
 
     // Key Discovery coming back
     self.onDataUpdaterPluginMessage = function (plugin, data) {
-      if (plugin !== "usb_keyboard") {
+      if (plugin !== "keyboard_commands") {
         return;
       }
 
@@ -309,7 +309,7 @@ $(function () {
     //   loadTemplate: function(name, templateConfig, callback) {
     //     if (templateConfig.fromUrl) {
     //       // Uses jQuery's ajax facility to load the markup from a file
-    //       var fullUrl = '/plugins/usb_keyboard/static/js/templates/' + templateConfig.fromUrl + '?cacheAge=' + templateConfig.maxCacheAge;
+    //       var fullUrl = '/plugins/keyboard_commands/static/js/templates/' + templateConfig.fromUrl + '?cacheAge=' + templateConfig.maxCacheAge;
     //       $.get(fullUrl, function(markupString) {
     //           // We need an array of DOM nodes, not a string.
     //           // We can use the default loader to convert to the
@@ -357,11 +357,11 @@ $(function () {
    * and a full list of the available options.
    */
   OCTOPRINT_VIEWMODELS.push({
-    construct: Usb_keyboardViewModel,
+    construct: Keyboard_commandsViewModel,
     // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
     dependencies: ["settingsViewModel" /* "loginStateViewModel", "settingsViewModel" */],
-    // Elements to bind to, e.g. #settings_plugin_usb_keyboard, #tab_plugin_usb_keyboard, ...
-    elements: ["#settings_plugin_usb_keyboard"]
+    // Elements to bind to, e.g. #settings_plugin_keyboard_commands, #tab_plugin_keyboard_commands, ...
+    elements: ["#settings_plugin_keyboard_commands"]
   });
 });
 

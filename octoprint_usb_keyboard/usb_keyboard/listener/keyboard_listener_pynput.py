@@ -29,7 +29,7 @@ class KeyboardListenerThread(keyboard.Listener):
       return
     else:
       self.key_dict[key_string] = key_state
-      eventManager().fire("plugin_usb_keyboard_key_event", dict(key=key_string, key_state=key_state))
+      eventManager().fire("plugin_keyboard_commands_key_event", dict(key=key_string, key_state=key_state))
 
   def on_press(self, key):  # The function that's called when a key is pressed
     self.on_key(key, "pressed")

@@ -32,7 +32,7 @@ class KeyboardListenerThread(threading.Thread):
                     key_state = KEY_STATE[key_event.keystate]
                     if key_name not in key_dict or key_dict.get(key_name) != key_state:
                         key_dict[key_name] = key_state
-                        eventManager().fire("plugin_usb_keyboard_key_event",
+                        eventManager().fire("plugin_keyboard_commands_key_event",
                                             dict(key=key_name, key_state=key_state))
         finally:
             # device.ungrab(

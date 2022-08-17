@@ -1,8 +1,8 @@
 ---
 layout: plugin
 
-id: usb_keyboard
-title: OctoPrint-Usb_keyboard
+id: keyboard_commands
+title: OctoPrint-Keyboard_commands
 description: Plugin to enable controlling a connected 3D printer with a USB keyboard
 author: Bereldhuin
 license: AGPLv3
@@ -97,4 +97,4 @@ compatibility:
 ---
 
 **TODO**: Longer description of your plugin, configuration examples etc. This part will be visible on the page at
-http://plugins.octoprint.org/plugin/usb_keyboard/
+http://plugins.octoprint.org/plugin/keyboard_commands/

@@ -81,7 +81,7 @@ function KeyDiscoverable(keyField, root) {
     self.root.keyDiscovery.push(self)
 
     // TODO:  DON'T LOSE THIS
-    OctoPrint.simpleApiCommand('usb_keyboard', 'key_discovery', {});// {"row":self.row(), "column":self.column(), "profile":self.profile()});
+    OctoPrint.simpleApiCommand('keyboard_commands', 'key_discovery', {});// {"row":self.row(), "column":self.column(), "profile":self.profile()});
 
   };
 }
