@@ -7,7 +7,7 @@
 
 var CURRENT_KEY = ko.observable(null)
 
-$(function() {
+$(function () {
   function Usb_keyboardViewModel(parameters) {
     var self = this;
     Expandable.call(self, "settings", ko.observable(true))
@@ -30,71 +30,76 @@ $(function() {
     self.keyDiscovery = []
 
 
-    ko.extenders.numeric = function(target, precision) {
-        //create a writable computed observable to intercept writes to our observable
-        var result = ko.pureComputed({
-            read: target,  //always return the original observables value
-            write: function(newValue) {
-                var current = target(),
-                    roundingMultiplier = Math.pow(10, precision),
-                    newValueAsNum = isNaN(newValue) ? 0 : +newValue,
-                    valueToWrite = Math.round(newValueAsNum * roundingMultiplier) / roundingMultiplier;
+    ko.extenders.numeric = function (target, precision) {
+      //create a writable computed observable to intercept writes to our observable
+      var result = ko.pureComputed({
+        read: target,  //always return the original observables value
+        write: function (newValue) {
+          var current = target(),
+            roundingMultiplier = Math.pow(10, precision),
+            newValueAsNum = isNaN(newValue) ? 0 : +newValue,
+            valueToWrite = Math.round(newValueAsNum * roundingMultiplier) / roundingMultiplier;
 
-                //only write if it changed
-                if (valueToWrite !== current) {
-                    target(valueToWrite);
-                } else {
-                    //if the rounded value is the same, but a different value was written, force a notification for the current field
-                    if (newValue !== current) {
-                        target.notifySubscribers(valueToWrite);
-                    }
-                }
+          //only write if it changed
+          if (valueToWrite !== current) {
+            target(valueToWrite);
+          } else {
+            //if the rounded value is the same, but a different value was written, force a notification for the current field
+            if (newValue !== current) {
+              target.notifySubscribers(valueToWrite);
             }
-        }).extend({ notify: 'always' });
+          }
+        }
+      }).extend({ notify: 'always' });
 
-        //initialize with current value to make sure it is rounded appropriately
-        result(target());
+      //initialize with current value to make sure it is rounded appropriately
+      result(target());
 
-        //return the new computed observable
-        return result;
+      //return the new computed observable
+      return result;
     };
 
 
     self.dupeDetected = ko.observable(false)
-    self.createProfile = function() {
+    self.createProfile = function () {
       var newProfileName = preventDuplicateProfileNames("New Profile", null)
 
-      var newProfile = ko.mapping.fromJS({"key":newProfileName,
-      "value":{ "description":null,
-                "commands":[],
-                "keyboard":{
-                  "scale": 3,
-                  "board": [
-                    {"keys":[
-                      {"key":null, "alias":null, "w":1, "h":1}
-                    ]}
-                  ]
-                },
-                "variables":[]
-              }});
+      var newProfile = ko.mapping.fromJS({
+        "key": newProfileName,
+        "value": {
+          "description": null,
+          "commands": [],
+          "keyboard": {
+            "scale": 3,
+            "board": [
+              {
+                "keys": [
+                  { "key": null, "alias": null, "w": 1, "h": 1 }
+                ]
+              }
+            ]
+          },
+          "variables": []
+        }
+      });
       newProfile.key(newProfileName)
 
       self.profiles.push(newProfile)
       self.activeProfileName(newProfileName)
     };
 
-    preventDuplicateProfileNames = function(newName, currentName) {
+    preventDuplicateProfileNames = function (newName, currentName) {
       for (name = newName;
         ko.toJS(self.profileNames).indexOf(newName) > -1;
         newName = "*" + newName) {
-          if (newName == currentName) {
-            break
-          }
+        if (newName == currentName) {
+          break
+        }
       }
       return newName
     }
 
-    self.profileNames = ko.pureComputed(function() {
+    self.profileNames = ko.pureComputed(function () {
       var profileNames = []
 
       function collectProfileNames(value, index, array) {
@@ -107,13 +112,13 @@ $(function() {
     });//.extend({ notify: 'always' });
     self.configuringDevice = ko.observable(false)
 
-    self.configureDevice = function() {
+    self.configureDevice = function () {
       self.configuringDevice(!self.configuringDevice())
 
       if (self.configuringDevice()) {
         OctoPrint.simpleApiCommand('usb_keyboard', 'query_devices', {});
         console.log("Turning on listening...")
-        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"start"});
+        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "start" });
         $('#UsbDeviceConfigModal').modal('show');
       }
       else {
@@ -121,10 +126,10 @@ $(function() {
       }
     }
 
-    self.changeDevicePath = function() {
+    self.changeDevicePath = function () {
       if (self.devicePath() != self.trialDevicePath()) {
         self.devicePath(self.trialDevicePath())
-        OctoPrint.simpleApiCommand('usb_keyboard', 'change_device_path', {"device_path":self.devicePath()});
+        OctoPrint.simpleApiCommand('usb_keyboard', 'change_device_path', { "device_path": self.devicePath() });
       }
 
     }
@@ -132,7 +137,7 @@ $(function() {
     self.fileData = ko.observable();
     self.fileName = ko.observable();
 
-    self.fileData.subscribe(function() {
+    self.fileData.subscribe(function () {
       if (self.fileData() == null) {
         return
       }
@@ -148,9 +153,9 @@ $(function() {
 
       var str = fileData.substring(index + searchFor.length)
 
-      var parsed_json = JSON.parse(decodeURIComponent(atob(str).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join('')))
+      var parsed_json = JSON.parse(decodeURIComponent(atob(str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join('')))
 
       parsed_json.key = preventDuplicateProfileNames(parsed_json.key, null)
 
@@ -160,7 +165,7 @@ $(function() {
 
     self.devicePathOptions = ko.observableArray()
 
-    self.onBeforeBinding = function() {
+    self.onBeforeBinding = function () {
       // console.log("Settings", self.settingsViewModel.settings.plugins.usb_keyboard)
 
       self.activeProfileName = self.settingsViewModel.settings.plugins.usb_keyboard.active_profile;
@@ -168,37 +173,35 @@ $(function() {
       self.devicePath = self.settingsViewModel.settings.plugins.usb_keyboard.device_path
 
 
-      $( "#UsbDeviceConfigModal" ).on('hidden', self.configureDevice);
-      $('#settings_plugin_usb_keyboard_link > a').on('click', function(){
+      $("#UsbDeviceConfigModal").on('hidden', self.configureDevice);
+      $('#settings_plugin_usb_keyboard_link > a').on('click', function () {
         console.log("Turning on listening...")
-        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"start"});
+        OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "start" });
       });
     }
 
-    self.onSettingsShown = function() {
+    self.onSettingsShown = function () {
       // console.log("Turning on listening...")
       // OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"start"});
     }
 
-    self.onSettingsBeforeSave = function() {
+    self.onSettingsBeforeSave = function () {
       // console.log("Settings saving", self.settingsViewModel.settings.plugins.usb_keyboard)
 
       console.log("Turning off listening... 1")
-      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"stop"});
+      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "stop" });
 
       // TODO: remove duplicate profile names
       // self.settingsViewModel.settings.plugins.usb_keyboard.profiles = self.profiles;
     }
 
 
-    self.onSettingsHidden = function() {
+    self.onSettingsHidden = function () {
       // console.log("Settings closed", self.settingsViewModel.settings.plugins.usb_keyboard)
 
       console.log("Turning off listening... 2")
-      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', {"action":"stop"});
+      OctoPrint.simpleApiCommand('usb_keyboard', 'active_listening', { "action": "stop" });
 
-
-      $('#settings_plugin_usb_keyboard button.fa-unlock').trigger('click');     // Lock all locks
       $('#settings_plugin_usb_keyboard button.fa-caret-down').trigger('click'); // Contract all expansions
       $('#settings_plugin_usb_keyboard button.fa-info-circle').trigger('click'); // Hide all info
     }
@@ -209,7 +212,7 @@ $(function() {
         return;
       }
 
-      switch(data["reply"]) {
+      switch (data["reply"]) {
         case "key_discovery":
 
 
@@ -221,11 +224,11 @@ $(function() {
           // var targetedProfileIndex = 0
 
           // function findTargetedProfile(value, index, array) {
-//             if (value.key() == profile) {
-//               targetedProfileIndex = index;
-//             }
-//           }
-//           self.profiles().forEach(findTargetedProfile);
+          //             if (value.key() == profile) {
+          //               targetedProfileIndex = index;
+          //             }
+          //           }
+          //           self.profiles().forEach(findTargetedProfile);
 
           // self.profiles().some(function(value) {
           //   if (value.key() == profile) {
@@ -235,8 +238,8 @@ $(function() {
           //   }})
 
           // console.log("Key targeted ", self.profiles()[targetedProfileIndex].value.keyboard()[row].keys()[column]);
-//
-//           self.profiles()[targetedProfileIndex].value.keyboard()[row].keys.splice(column, 1, keyName)
+          //
+          //           self.profiles()[targetedProfileIndex].value.keyboard()[row].keys.splice(column, 1, keyName)
           function setKeys(value, index, array) {
             value.setKey(keyName)
           }
@@ -285,19 +288,19 @@ $(function() {
     }
 
     ko.bindingHandlers['keyvalue'] = {
-      makeTemplateValueAccessor: function(valueAccessor) {
-          return function() {
-              var values = ko.unwrap(valueAccessor());
-              var array = [];
-              for (var key in values)
-                  array.push({key: key, value: values[key]});
-              return array;
-          };
+      makeTemplateValueAccessor: function (valueAccessor) {
+        return function () {
+          var values = ko.unwrap(valueAccessor());
+          var array = [];
+          for (var key in values)
+            array.push({ key: key, value: values[key] });
+          return array;
+        };
       },
-      'init': function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+      'init': function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         return ko.bindingHandlers['foreach']['init'](element, ko.bindingHandlers['keyvalue'].makeTemplateValueAccessor(valueAccessor));
       },
-      'update': function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+      'update': function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         return ko.bindingHandlers['foreach']['update'](element, ko.bindingHandlers['keyvalue'].makeTemplateValueAccessor(valueAccessor), allBindings, viewModel, bindingContext);
       }
     };
@@ -356,7 +359,7 @@ $(function() {
   OCTOPRINT_VIEWMODELS.push({
     construct: Usb_keyboardViewModel,
     // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
-    dependencies: ["settingsViewModel" /* "loginStateViewModel", "settingsViewModel" */ ],
+    dependencies: ["settingsViewModel" /* "loginStateViewModel", "settingsViewModel" */],
     // Elements to bind to, e.g. #settings_plugin_usb_keyboard, #tab_plugin_usb_keyboard, ...
     elements: ["#settings_plugin_usb_keyboard"]
   });

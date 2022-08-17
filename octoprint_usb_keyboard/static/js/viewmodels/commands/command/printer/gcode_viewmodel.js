@@ -1,6 +1,5 @@
 function CommandsCommandPrinterGcodeViewModel(params) {
   var self = this
-  Lockable.call(self, "gcode", params.locked)
   SelfManaged.call(self, params.parentArray, params.gcodeCommand)
   // console.log("CommandsCommandPrinterGcodeViewModel raw", params)
   // console.log("CommandsCommandPrinterGcodeViewModel self", self)

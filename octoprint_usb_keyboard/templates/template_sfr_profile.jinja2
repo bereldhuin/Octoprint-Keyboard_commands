@@ -5,7 +5,7 @@
 
 <template id='template-sfr-profile'>
   <span><strong>Profile</strong></span>
-  &emsp;<button class="btn btn-default" data-bind="css: lockedClass, click: toggleLock"></button>
+  
   &nbsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp"></button>
   &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown"></button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
@@ -13,9 +13,6 @@
     <hr>
     <p><b>Profile Management</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
     <ul>
-      <li>
-        <button class="btn btn-default" data-bind="css: lockedClass"></button> locks/unlocks the textfields and buttons.
-      </li>
       <li>
         <button class="btn btn-default fa fa-arrow-up"></button><button class="btn btn-default fa fa-arrow-down"></button> Moves current profile up/down respectively in the list.
         Purely organizational.
@@ -48,21 +45,21 @@
   
   <table>
     <tr>
-      <td><input placeholder="Enter name..." data-bind="textInput: newProfileName, attr: {disabled: locked}"/></td>
-      <td><button class="btn btn-default fa fa-pencil" data-bind="click: editProfileName, attr: {disabled: locked}"></button></td>
-      <td><button class="btn btn-default fa fa-files-o" data-bind="click: duplicateProfile, attr: {disabled: locked}"></button></td>
-      <td><a class="btn btn-default fa fa-download" data-bind="attr: {href: exportProfileData(), download: exportProfileName(), disabled: locked}"></a></td>
-      <td><button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button></td>
+      <td><input placeholder="Enter name..." data-bind="textInput: newProfileName, "/></td>
+      <td><button class="btn btn-default fa fa-pencil" data-bind="click: editProfileName, "></button></td>
+      <td><button class="btn btn-default fa fa-files-o" data-bind="click: duplicateProfile, "></button></td>
+      <td><a class="btn btn-default fa fa-download" data-bind="attr: {href: exportProfileData(), download: exportProfileName()}"></a></td>
+      <td><button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button></td>
     </tr>
   </table>
-  <textarea class="profileDescription" placeholder="Enter a description here..." maxlength=2000 data-bind="textInput: description, attr: {disabled: locked, rows: description() == null ? 1 : Math.ceil(description().length / 70) }"></textarea>
+  <textarea class="profileDescription" placeholder="Enter a description here..." maxlength=2000 data-bind="textInput: description, attr: {rows: description() == null ? 1 : Math.ceil(description().length / 70) }"></textarea>
   <br>
 
-  <hr>
-  <sfr-keyboard params='keyboard: keyboard, commands: commands, profile: profile'></sfr-keyboard>
   <hr>
   <sfr-commands params='commands: commands, profile: profile, profileNames: profileNames, allowedVariables: allowedVariables'></sfr-commands>
   <hr>
   <sfr-variables params='variables: variables, profile: profile'></sfr-variables>
-  
+   <hr>
+  <sfr-keyboard params='keyboard: keyboard, commands: commands, profile: profile'></sfr-keyboard>
+ 
 </template>

@@ -1,6 +1,5 @@
 function CommandsCommandOctoprintViewModel(params) {
   var self = this
-  Lockable.call(self, "action", params.locked)
   SelfManaged.call(self, params.parentArray, params.commandActionObject)
   ShowsInfo.call(self)
 
@@ -13,15 +12,15 @@ function CommandsCommandOctoprintViewModel(params) {
   self.command = params.commandActionObject.command;
   self.presses_required = params.commandActionObject.presses_required.extend({ numeric: 0 });
   self.supportedCommands = ["cancel_print",
-                            "confirm_last_command",
-                            "pause_print",
-                            "resume_print",
-                            "start_print",
-                            "toggle_pause_print",
-                            "toggle_cancel_print",
-                            "restart_server",
-                            "restart_system",
-                            "shutdown_system"]
+    "confirm_last_command",
+    "pause_print",
+    "resume_print",
+    "start_print",
+    "toggle_pause_print",
+    "toggle_cancel_print",
+    "restart_server",
+    "restart_system",
+    "shutdown_system"]
 }
 ko.components.register('sfr-commands-command-octoprint', {
   viewModel: CommandsCommandOctoprintViewModel,

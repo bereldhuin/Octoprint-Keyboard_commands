@@ -1,6 +1,5 @@
 function CommandsCommandPluginPsucontrolViewModel(params) {
   var self = this
-  Lockable.call(self, "action", params.locked)
   SelfManaged.call(self, params.parentArray, params.commandActionObject)
   ShowsInfo.call(self)
 

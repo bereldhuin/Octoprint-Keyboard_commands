@@ -1,6 +1,5 @@
 function CommandsCommandSetActiveProfileViewModel(params) {
   var self = this
-  Lockable.call(self, "action", params.locked)
   SelfManaged.call(self, params.parentArray, params.commandActionObject)
   ShowsInfo.call(self)
   // console.log("CommandsCommandSetActiveProfileViewModel raw", params)
@@ -11,7 +10,7 @@ function CommandsCommandSetActiveProfileViewModel(params) {
   self.type = params.commandActionObject.type;
   self.profileName = params.commandActionObject.profile;
 
-  self.allowedProfiles = ko.pureComputed(function() {
+  self.allowedProfiles = ko.pureComputed(function () {
     var allowedProfiles = ko.toJS(self.profileNames())
     allowedProfiles.splice(allowedProfiles.indexOf(self.profile()), 1)
     return allowedProfiles

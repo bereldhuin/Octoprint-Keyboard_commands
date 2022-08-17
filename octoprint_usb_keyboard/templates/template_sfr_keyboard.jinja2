@@ -1,16 +1,13 @@
 <template id='template-sfr-keyboard'>
   <span><strong>Keyboard</strong></span>
-  &emsp;<button class="btn btn-default" data-bind="css: lockedClass, click: toggleLock"></button>
-  &emsp;<input type="number" style="width: 200px" data-bind="attr: {disabled: locked}, slider: {min: 2, max: 6, step: .5, value: keyboardScale, tooltip: 'hide'}" />
+  
+  &emsp;<input type="number" style="width: 200px" data-bind=", slider: {min: 2, max: 6, step: .5, value: keyboardScale, tooltip: 'hide'}" />
   &emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
   
   <div data-bind="visible: showingInfo">
     <hr>
     <p><b>Keyboard Configuration</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
     <ul>
-      <li>
-        <button class="btn btn-default" data-bind="css: lockedClass"></button> locks/unlocks the textfields and buttons.
-      </li>
       <li>
         <input type="number" style="width: 70px" data-bind="slider: {min: 2, max: 6, step: .5, value: infoSlider, tooltip: 'hide'}" />&emsp;adjusts the keyboard scale.
       </li>
@@ -30,8 +27,8 @@
   <table class="keyboardTable" cellspacing="0" cellpadding="0">
     <thead>
       <tr>
-        <td><button class="btn btn-primary" data-bind="click: addRow, attr: {disabled: locked}">{{ _('+') }}</button></td>
-        <td><button class="btn btn-danger" data-bind="click: deleteRow, attr: {disabled: locked}">{{ _('-') }}</button></td>
+        <td><button class="btn btn-primary" data-bind="click: addRow, ">{{ _('+') }}</button></td>
+        <td><button class="btn btn-danger" data-bind="click: deleteRow, ">{{ _('-') }}</button></td>
         <!-- ko repeat: {count: spacerCount} -->
         <td data-bind="attr: {width: spacerWidth()}"></td>
         <!-- /ko -->
@@ -40,7 +37,7 @@
     <tbody data-bind="foreach: keyboardRows">
       <!-- ko component: {
           name: "sfr-keyboard-row",
-          params: { keys: $data.keys, editingKey: $parent.editingKey, keyboardScale: $parent.keyboardScale, commands: $parent.commands, row: $index, profile: $parentContext.$data.profile, locked: $parentContext.$data.locked }
+          params: { keys: $data.keys, editingKey: $parent.editingKey, keyboardScale: $parent.keyboardScale, commands: $parent.commands, row: $index, profile: $parentContext.$data.profile }
       } -->
       <!-- /ko -->
     </tbody>
@@ -99,9 +96,9 @@
     </table>
     <dl>
       <dt>Width Scale:</dt>
-      <dl>&emsp;<input type="number" style="width: 100px" data-bind="attr: {disabled: locked}, slider: {min: 1, max: 7, step: 0.25, value: widthScale, tooltip: 'hide'}"/>&emsp;<span data-bind="text: widthScale"></span>
+      <dl>&emsp;<input type="number" style="width: 100px" data-bind=", slider: {min: 1, max: 7, step: 0.25, value: widthScale, tooltip: 'hide'}"/>&emsp;<span data-bind="text: widthScale"></span>
       <dt>Height Scale:</dt>
-      <dl>&emsp;<input type="number" style="width: 100px" data-bind="attr: {disabled: locked}, slider: {min: 1, max: 2, step: 1, value: heightScale, tooltip: 'hide'}"/>&emsp;<span data-bind="text: widthScale"></span>
+      <dl>&emsp;<input type="number" style="width: 100px" data-bind=", slider: {min: 1, max: 2, step: 1, value: heightScale, tooltip: 'hide'}"/>&emsp;<span data-bind="text: widthScale"></span>
     </dl>
     <br>
     <button class="btn btn-primary" data-bind="click: addCommand">{{ _('Add/Reveal Command') }}</button>
@@ -115,15 +112,15 @@
 
     <tr>
       <td>
-        <button class='btn btn-primary' data-bind='click: addKey, attr: {disabled: locked}'>{{ _('+') }}</button>
+        <button class='btn btn-primary' data-bind='click: addKey, '>{{ _('+') }}</button>
       </td>
       <td>
-        <button class='btn btn-danger' data-bind='click: deleteKey, attr: {disabled: locked}'>{{ _('-') }}</button>
+        <button class='btn btn-danger' data-bind='click: deleteKey, '>{{ _('-') }}</button>
       </td>
       <!-- ko foreach: keys -->
       <!-- ko component: {
           name: "sfr-keyboard-row-key",
-          params: { keyData: $data, editingKey: $parent.editingKey, keyboardScale: $parent.keyboardScale,  root: $root, commands: $parent.commands, column: $index, row: $parent.row, profile: $parent.profile, locked: $parentContext.$data.locked }
+          params: { keyData: $data, editingKey: $parent.editingKey, keyboardScale: $parent.keyboardScale,  root: $root, commands: $parent.commands, column: $index, row: $parent.row, profile: $parent.profile }
       } -->
       <!-- /ko -->
       <!-- /ko -->
@@ -134,7 +131,7 @@
 <template id="template-sfr-keyboard-row-key">
   <!-- <td attr: {rowspan: rowSpan, colspan: colSpan> -->
   <td data-bind="attr: {rowspan: rowSpan, colspan: colSpan}">
-    <button class="btn btn-default" class="keyboardKey" data-bind="text: keyText, click: editKey, style: {height: calcHeight(), width: calcWidth(), opacity: key() == null ? 0.4 : 1.0 }, attr: {disabled: locked}"></button>
+    <button class="btn btn-default" class="keyboardKey" data-bind="text: keyText, click: editKey, style: {height: calcHeight(), width: calcWidth(), opacity: key() == null ? 0.4 : 1.0 }, "></button>
   </td>
 </template>
 

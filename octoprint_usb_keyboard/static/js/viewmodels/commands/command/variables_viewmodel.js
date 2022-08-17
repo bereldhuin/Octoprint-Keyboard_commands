@@ -1,6 +1,5 @@
 function CommandsCommandVariablesViewModel(params) {
   var self = this
-  Lockable.call(self, "action", params.locked)
   ShowsInfo.call(self)
 
   // console.log("CommandsCommandVariablesViewModel raw", params)
@@ -14,27 +13,27 @@ function CommandsCommandVariablesViewModel(params) {
 
 
   // This will be used by every variable-selecting command
-  self.localAllowedVariables = ko.pureComputed(function() {
+  self.localAllowedVariables = ko.pureComputed(function () {
     var variableNames = []
-    self.variables().some(function(value) {
+    self.variables().some(function (value) {
       variableNames.push(value.key)
     });
 
     variableNames = ko.toJS(variableNames)
-    return ko.toJS(self.allowedVariables()).filter(function(value, index, arr) {
+    return ko.toJS(self.allowedVariables()).filter(function (value, index, arr) {
       return variableNames.indexOf(value) == -1
     });
   });
 
-  this.deleteVariable = function(obj, variable) {
+  this.deleteVariable = function (obj, variable) {
     self.variables.splice(self.variables.indexOf(variable), 1)
   }
 
-  this.addVariable = function() {
+  this.addVariable = function () {
     if (self.newVariableKey() == null || self.newVariableValue() == null) {
       return
     }
-    self.variables.push({"key":ko.observable(self.newVariableKey()), "value":ko.observable(self.newVariableValue())})
+    self.variables.push({ "key": ko.observable(self.newVariableKey()), "value": ko.observable(self.newVariableValue()) })
     self.newVariableKey(null)
     self.newVariableValue(null)
   }

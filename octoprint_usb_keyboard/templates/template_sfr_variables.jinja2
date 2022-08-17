@@ -1,14 +1,11 @@
 <template id='template-sfr-variables'>
   <span><strong>Variables</strong></span>
-  &emsp;<button class="btn btn-default" data-bind="css: lockedClass, click: toggleLock"></button>
+  
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
   <div data-bind="visible: showingInfo">
     <hr>
     <p><b>Variable Names and Defaults</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
     <ul>
-      <li>
-        <button class="btn btn-default" data-bind="css: lockedClass"></button> locks/unlocks the textfields and buttons.
-      </li>
       <li>
         <input placeholder="Enter key..." /> allows you to create a new variable.
         This new variable is immediately available for use in commands.
@@ -36,10 +33,10 @@
       <table>
         <tbody>
           <tr>
-            <td><input placeholder="Enter key..." data-bind="textInput: newVariableKey, attr: {disabled: locked}" /></td>
-            <td><input placeholder="Enter value..." data-bind="textInput: newVariableValue, attr: {disabled: locked}" /></td>
+            <td><input placeholder="Enter key..." data-bind="textInput: newVariableKey, " /></td>
+            <td><input placeholder="Enter value..." data-bind="textInput: newVariableValue, " /></td>
             <td>
-              <button class="btn btn-primary" data-bind="click: addVariable, attr: {disabled: locked}">{{ _('+') }}</button>
+              <button class="btn btn-primary" data-bind="click: addVariable, ">{{ _('+') }}</button>
             </td>
             <td data-bind="visible: dupeDetected">
               <span><strong>No Duplicates Keys!</strong></span>
@@ -49,9 +46,9 @@
         <tbody data-bind="foreach: variables">
           <tr>
             <td data-bind="text: $data.key"></td>
-            <td><input placeholder="Edit value..." data-bind="textInput: value, attr: {disabled: $parent.locked}" /></td>
+            <td><input placeholder="Edit value..." data-bind="textInput: value" /></td>
             <td>
-              <button class="btn btn-danger" data-bind="click: $parent.deleteVariable, attr: {disabled: $parent.locked}">{{ _('-') }}</button>
+              <button class="btn btn-danger" data-bind="click: $parent.deleteVariable">{{ _('-') }}</button>
             </td>
           </tr>
         </tbody>

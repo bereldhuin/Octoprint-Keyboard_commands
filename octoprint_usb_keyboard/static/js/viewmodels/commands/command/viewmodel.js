@@ -1,6 +1,5 @@
 function CommandsCommandViewModel(params) {
   var self = this
-  Lockable.call(self, "commands")
   Expandable.call(self, "commands")
   SelfManaged.call(self, params.parentArray, params.commandObject)
   KeyDiscoverable.call(self, params.commandObject.key, params.root)
@@ -18,7 +17,7 @@ function CommandsCommandViewModel(params) {
   self.allowedVariables = params.allowedVariables
   self.allowedCommandActions = ["octoprint", "printer", "plugin_psucontrol", "save_vars", "listen_vars", "set_active_profile"]
 
-  self.commandText = ko.pureComputed(function() {
+  self.commandText = ko.pureComputed(function () {
     if (self.alias() == null || self.alias === "") {
       return self.command();
     }
@@ -27,10 +26,10 @@ function CommandsCommandViewModel(params) {
 
   self.newCommandAction = ko.observable()
 
-  self.createCommandAction = function(list) {
+  self.createCommandAction = function (list) {
     var type = self.newCommandAction()
-    var newCommandActionMap = {"type":type}
-    switch(type) {
+    var newCommandActionMap = { "type": type }
+    switch (type) {
       case "printer":
         newCommandActionMap["gcode"] = []
         newCommandActionMap["options"] = ""
@@ -58,7 +57,7 @@ function CommandsCommandViewModel(params) {
     list.push(ko.mapping.fromJS(newCommandActionMap))
   }
 
-  self.clearKey = function() {
+  self.clearKey = function () {
     self.setKey(null)
   }
 }

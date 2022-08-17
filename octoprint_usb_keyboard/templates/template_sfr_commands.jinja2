@@ -19,7 +19,7 @@
       <!-- ko foreach: commands -->
       <tr>
         <td>
-          <sfr-commands-command params='commandObject: $data, parentArray: $parent.commands, allowedVariables: $parent.allowedVariables, profile: $parent.profile, profileNames: $parent.profileNames, locked: $parent.locked, root: $root'></sfr-commands-command>
+          <sfr-commands-command params='commandObject: $data, parentArray: $parent.commands, allowedVariables: $parent.allowedVariables, profile: $parent.profile, profileNames: $parent.profileNames, root: $root'></sfr-commands-command>
         </td>
       </tr>
       <!-- /ko -->
@@ -30,10 +30,9 @@
 
 <template id='template-sfr-commands-command'>
   <button class="btn btn-default" data-bind="css: expandedClass, click: toggleExpanded"></button>
-  &nbsp;<button class="btn btn-default" data-bind="css: lockedClass, click: toggleLock, visible: expanded"></button>
   &nbsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp"></button>
   &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}, visible: expanded">{{ _('-') }}</button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, , visible: expanded">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo, visible: expanded"></button>
   &emsp;<span><strong data-bind="text: commandText()"></strong></span>
 
@@ -46,8 +45,6 @@
         Helps you stay focused on one command at a time.
       </li>
       <li>
-        <button class="btn btn-default" data-bind="css: lockedClass"></button> locks/unlocks textfields and buttons.
-      </li>
       <li>
         <button class="btn btn-default fa fa-arrow-up"></button><button class="btn btn-default fa fa-arrow-down"></button> Moves command up/down respectively in the list.
         Purely organizational.
@@ -110,64 +107,64 @@
       <table>
         <tr>
           <td>Key:</td>
-          <td><input class="centered" placeholder="Enter key..." data-bind="textInput: key, attr: {disabled: locked}" /></td>
-          <td><button class="btn btn-default" data-bind="click: keyDiscovery, attr: {disabled: locked}">{{ _('Get Key') }}</button></td>
-          <td><button class="btn btn-danger" data-bind="click: clearKey, attr: {disabled: (key() == null || locked)}">{{ _('Clear Key') }}</button></td>
+          <td><input class="centered" placeholder="Enter key..." data-bind="textInput: key, " /></td>
+          <td><button class="btn btn-default" data-bind="click: keyDiscovery, ">{{ _('Get Key') }}</button></td>
+          <td><button class="btn btn-danger" data-bind="click: clearKey">{{ _('Clear Key') }}</button></td>
         </tr>
         <tr>
           <td>Optional Alias:</td>
-          <td><input class="centered" placeholder="Optional alias..." data-bind="textInput: alias, attr: {disabled: locked}" /></td>
+          <td><input class="centered" placeholder="Optional alias..." data-bind="textInput: alias, " /></td>
         </tr>
       </table>
     </li>
 
-    <li><strong>Pressed</strong>&emsp;<select data-bind="options: allowedCommandActions, value: newCommandAction, attr: {disabled: locked}"></select><button class="btn btn-primary" data-bind="click: createCommandAction.bind($data, pressed), attr: {disabled: locked}">{{ _('+') }}</button>
+    <li><strong>Pressed</strong>&emsp;<select data-bind="options: allowedCommandActions, value: newCommandAction, "></select><button class="btn btn-primary" data-bind="click: createCommandAction.bind($data, pressed), ">{{ _('+') }}</button>
       <ol>
       <!-- ko foreach: pressed -->
         <!-- ko if: $data.type() == "printer" -->
-        <li><sfr-commands-command-printer params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-printer></li>
+        <li><sfr-commands-command-printer params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile'></sfr-commands-command-printer></li>
         <!-- /ko -->
         <!-- ko if: $data.type().indexOf("_vars") != -1 -->
-        <li><sfr-commands-command-listen-save-vars params='commandActionObject: $data, parentArray: $parent.pressed, allowedVariables: $parent.allowedVariables, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-listen-save-vars></li>
+        <li><sfr-commands-command-listen-save-vars params='commandActionObject: $data, parentArray: $parent.pressed, allowedVariables: $parent.allowedVariables, profile: $parent.profile'></sfr-commands-command-listen-save-vars></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "plugin_psucontrol" -->
-        <li><sfr-commands-command-plugin-psucontrol params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-plugin-psucontrol></li>
+        <li><sfr-commands-command-plugin-psucontrol params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile'></sfr-commands-command-plugin-psucontrol></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "octoprint" -->
-        <li><sfr-commands-command-octoprint params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-octoprint></li>
+        <li><sfr-commands-command-octoprint params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile'></sfr-commands-command-octoprint></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "set_active_profile" -->
-        <li><sfr-commands-command-set-active-profile params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile, profileNames: $parent.profileNames, locked: $parent.locked'></sfr-commands-command-set-active-profile></li>
+        <li><sfr-commands-command-set-active-profile params='commandActionObject: $data, parentArray: $parent.pressed, profile: $parent.profile, profileNames: $parent.profileNames'></sfr-commands-command-set-active-profile></li>
         <!-- /ko -->
       <!-- /ko -->
       </ol>
     </li>
     <hr>
     <li>
-      <strong>Released</strong>&emsp;<select data-bind="options: allowedCommandActions, value: newCommandAction, attr: {disabled: locked}"></select><button class="btn btn-primary" data-bind="click: createCommandAction.bind($data, released), attr: {disabled: locked}">{{ _('+') }}</button>
+      <strong>Released</strong>&emsp;<select data-bind="options: allowedCommandActions, value: newCommandAction, "></select><button class="btn btn-primary" data-bind="click: createCommandAction.bind($data, released), ">{{ _('+') }}</button>
       <ol>
       <!-- ko foreach: released -->
         <!-- ko if: $data.type() == "printer" -->
-        <li><sfr-commands-command-printer params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-printer></li>
+        <li><sfr-commands-command-printer params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile'></sfr-commands-command-printer></li>
         <!-- /ko -->
         <!-- ko if: $data.type().indexOf("_vars") != -1 -->
-        <li><sfr-commands-command-listen-save-vars params='commandActionObject: $data, parentArray: $parent.released, allowedVariables: $parent.allowedVariables, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-listen-save-vars></li>
+        <li><sfr-commands-command-listen-save-vars params='commandActionObject: $data, parentArray: $parent.released, allowedVariables: $parent.allowedVariables, profile: $parent.profile'></sfr-commands-command-listen-save-vars></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "plugin_psucontrol" -->
-        <li><sfr-commands-command-plugin-psucontrol params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-plugin-psucontrol></li>
+        <li><sfr-commands-command-plugin-psucontrol params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile'></sfr-commands-command-plugin-psucontrol></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "octoprint" -->
-        <li><sfr-commands-command-octoprint params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-octoprint></li>
+        <li><sfr-commands-command-octoprint params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile'></sfr-commands-command-octoprint></li>
         <!-- /ko -->
         <!-- ko if: $data.type() == "set_active_profile" -->
-        <li><sfr-commands-command-set-active-profile params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile, profileNames: $parent.profileNames, locked: $parent.locked'></sfr-commands-command-set-active-profile></li>
+        <li><sfr-commands-command-set-active-profile params='commandActionObject: $data, parentArray: $parent.released, profile: $parent.profile, profileNames: $parent.profileNames'></sfr-commands-command-set-active-profile></li>
         <!-- /ko -->
       <!-- /ko -->
       </ol>
     </li>
     <hr>
     <li>
-      <sfr-commands-command-variables params='variables: variables, allowedVariables: allowedVariables, profile: profile, locked: locked'></sfr-commands-command-variables>
+      <sfr-commands-command-variables params='variables: variables, allowedVariables: allowedVariables, profile: profile'></sfr-commands-command-variables>
     </li>
     <hr>
   </ul>
@@ -206,19 +203,19 @@
       <table>
         <tbody data-bind="if: localAllowedVariables().length > 0">
           <tr>
-            <td><select data-bind="options: localAllowedVariables, value: newVariableKey, attr: {disabled: locked}"></select></td>
-            <td><input placeholder="Enter value..." data-bind="textInput: newVariableValue, attr: {disabled: locked}" /></td>
+            <td><select data-bind="options: localAllowedVariables, value: newVariableKey, "></select></td>
+            <td><input placeholder="Enter value..." data-bind="textInput: newVariableValue, " /></td>
             <td>
-              <button class="btn btn-primary" data-bind="click: addVariable, attr: {disabled: locked}">{{ _('+') }}</button>
+              <button class="btn btn-primary" data-bind="click: addVariable, ">{{ _('+') }}</button>
             </td>
           </tr>
         </tbody>
         <tbody data-bind="foreach: variables">
           <tr>
             <td data-bind="text: $data.key"></td>
-            <td><input placeholder="Enter value..." data-bind="textInput: value, attr: {disabled: $parent.locked}" /></td>
+            <td><input placeholder="Enter value..." data-bind="textInput: value" /></td>
             <td>
-              <button class="btn btn-danger" data-bind="click: $parent.deleteVariable.bind(key, $index), attr: {disabled: $parent.locked}">{{ _('-') }}</button>
+              <button class="btn btn-danger" data-bind="click: $parent.deleteVariable.bind(key, $index)">{{ _('-') }}</button>
             </td>
           </tr>
         </tbody>
@@ -232,9 +229,9 @@
 <template id='template-sfr-commands-command-printer'>
   <strong>Command Type:</strong>
   &emsp;<span data-bind="text: type"></span>
-  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
 
   <div data-bind="visible: showingInfo">
@@ -249,7 +246,7 @@
         <button class="btn btn-danger">{{ _('-') }}</button> deletes this command. Poof. Gone.
       </li>
       <li>
-         Sending Options <button class="btn btn-default fa fa-caret-left"></button>/<button class="btn btn-default fa fa-caret-down"></button> reveals/hides the gcode command sending options. See inside for more info.
+         Sending Options <button class="btn btn-default fa fa-bars"></button>/<button class="btn btn-default fa fa-caret-down"></button> reveals/hides the gcode command sending options. See inside for more info.
       </li>
       <li>
         Gcode to run:
@@ -278,13 +275,13 @@
   </div>
 
   <br>
-  <sfr-commands-command-printer-options params='options: options, profile: profile, locked: locked'></sfr-commands-command-printer-options>
+  <sfr-commands-command-printer-options params='options: options, profile: profile'></sfr-commands-command-printer-options>
   <br>
-  Gcode to run: <button class="btn btn-primary" data-bind="click: addLine, attr: {disabled: locked}">{{ _('+') }}</button>
+  Gcode to run: <button class="btn btn-primary" data-bind="click: addLine, ">{{ _('+') }}</button>
 
   <ol>
     <!-- ko foreach: gcode -->
-    <sfr-commands-command-printer-gcode params='gcodeCommand: $data, parentArray: $parent.gcode, profile: $parent.profile, locked: $parent.locked'></sfr-commands-command-printer-gcode>
+    <sfr-commands-command-printer-gcode params='gcodeCommand: $data, parentArray: $parent.gcode, profile: $parent.profile'></sfr-commands-command-printer-gcode>
     <!-- /ko -->
   </ol>
 
@@ -293,10 +290,10 @@
 
 <template id='template-sfr-commands-command-printer-gcode'>
   <li>
-    <input placeholder="Enter gcode here..." class="gcodeLine" data-bind="textInput: code, attr: {disabled: locked}"/>
-    <button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-    <button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-    <button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+    <input placeholder="Enter gcode here..." class="gcodeLine" data-bind="textInput: code, "/>
+    <button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+    <button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+    <button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   </li>
 </template>
 
@@ -326,22 +323,22 @@
 
     <ul>
       <li>
-        Printing&emsp;<button class="btn fa" data-bind="css: sendWhilePrintingClass, click: toggleSendWhilePrinting, attr: {disabled: locked}"></button>
+        Printing&emsp;<button class="btn fa" data-bind="css: sendWhilePrintingClass, click: toggleSendWhilePrinting, "></button>
       </li>
       <li>
-        Paused&emsp;<button class="btn fa" data-bind="css: sendWhilePausedClass, click: toggleSendWhilePaused, attr: {disabled: locked}"></button>
+        Paused&emsp;<button class="btn fa" data-bind="css: sendWhilePausedClass, click: toggleSendWhilePaused, "></button>
       </li>
     </ul>
-    <b>FORCE SEND:</b><button class="btn fa" data-bind="css: forceSendClass, click: toggleForceSend, attr: {disabled: locked}"></button>
+    <b>FORCE SEND:</b><button class="btn fa" data-bind="css: forceSendClass, click: toggleForceSend, "></button>
   </div>
 </template>
 
 <template id='template-sfr-commands-command-set-active-profile'>
   <strong>Command Type:</strong>
   &emsp;<span data-bind="text: type"></span>
-  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
 
   <div data-bind="visible: showingInfo">
@@ -365,16 +362,16 @@
   </div>
 
   <br>
-  Set active profile: <select data-bind="options: allowedProfiles(), value: profileName, attr: {disabled: locked}"></select>
+  Set active profile: <select data-bind="options: allowedProfiles(), value: profileName, "></select>
 </template>
 
 
 <template id='template-sfr-commands-command-listen-save-vars'>
   <strong>Command Type:</strong>
   &emsp;<span data-bind="text: type"></span>
-  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
 
   <div data-bind="visible: showingInfo">
@@ -414,7 +411,7 @@
   </div>
 
   <br>
-  Select one or more variables: <select data-bind="options: allowedVariables(), selectedOptions: variables, attr: {disabled: locked, size: allowedVariables().length}" multiple="true"></select>
+  Select one or more variables: <select data-bind="options: allowedVariables(), selectedOptions: variables, attr: {size: allowedVariables().length}" multiple="true"></select>
 
 
 </template>
@@ -422,9 +419,9 @@
 <template id='template-sfr-commands-command-plugin-psucontrol'>
   <strong>Command Type:</strong>
   &emsp;<span data-bind="text: type"></span>
-  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
 
   <div data-bind="visible: showingInfo">
@@ -449,17 +446,17 @@
     <hr>
   </div>
   <br>
-  Prevent PSU shutdown if a hotend is hotter than <input placeholder="˚C" class="temperature" data-bind="textInput: hotendMax, attr: {disabled: locked}" maxlength="3" size="3"/>˚C
+  Prevent PSU shutdown if a hotend is hotter than <input placeholder="˚C" class="temperature" data-bind="textInput: hotendMax, " maxlength="3" size="3"/>˚C
   <br>
-  PSU Command: <select data-bind="options: supportedCommands, value: command, attr: {disabled: locked}"></select>
+  PSU Command: <select data-bind="options: supportedCommands, value: command, "></select>
 </template>
 
 <template id='template-sfr-commands-command-octoprint'>
   <strong>Command Type:</strong>
   &emsp;<span data-bind="text: type"></span>
-  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, attr: {disabled: locked}"></button>
-  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, attr: {disabled: locked}">{{ _('-') }}</button>
+  &emsp;<button class="btn btn-default fa fa-arrow-up" data-bind="click: moveSelfUp, "></button>
+  &nbsp;<button class="btn btn-default fa fa-arrow-down" data-bind="click: moveSelfDown, "></button>
+  &nbsp;<button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button>
   &nbsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button>
 
   <div data-bind="visible: showingInfo">
@@ -477,7 +474,7 @@
         <select data-bind="options: supportedCommands"></select> lets you select the command to send to Octoprint. The command "confirm_last_command" causes the last pressed octoprint command to fire, regardless of remaining key presses required.
       </li>
       <li>
-        <input placeholder="#" data-bind="textInput: presses_required, attr: {disabled: locked}" maxlength="3" size="3"/> allows you to specify how many command calls, sequentially and without interruption, are required in order to fire this command. This is a safety feature to prevent accidentially canceling/pausing prints with erroneous key presses. This means that if any other command type is run whiles this number is tracking, it will reset the counter to 0. This value has no affect for the "confirm_last_command" command.
+        <input placeholder="#" data-bind="textInput: presses_required, " maxlength="3" size="3"/> allows you to specify how many command calls, sequentially and without interruption, are required in order to fire this command. This is a safety feature to prevent accidentially canceling/pausing prints with erroneous key presses. This means that if any other command type is run whiles this number is tracking, it will reset the counter to 0. This value has no affect for the "confirm_last_command" command.
       </li>
     </ul>
     <p>Note: "confirm_last_command" only works if the last key pressed/released was another octoprint command.</p>
@@ -485,7 +482,7 @@
     <hr>
   </div>
   <br>
-  Octoprint Command: <select data-bind="options: supportedCommands, value: command, attr: {disabled: locked}"></select>
+  Octoprint Command: <select data-bind="options: supportedCommands, value: command, "></select>
   <br>
-  Requires <input placeholder="#" data-bind="textInput: presses_required, attr: {disabled: locked}" maxlength="3" size="3"/> presses to trigger.
+  Requires <input placeholder="#" data-bind="textInput: presses_required, " maxlength="3" size="3"/> presses to trigger.
 </template>

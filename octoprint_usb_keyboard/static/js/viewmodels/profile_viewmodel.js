@@ -1,6 +1,5 @@
 function ProfileViewModel(params) {
   var self = this
-  Lockable.call(self, "profile")
   SelfManaged.call(self, params.profileArray, params.profileObject)
   ShowsInfo.call(self)
   // console.log("ProfileViewModel raw", params)
@@ -20,16 +19,16 @@ function ProfileViewModel(params) {
   self.newProfileName = ko.observable(self.profile())
 
   // This will be used by every variable-selecting command
-  self.allowedVariables = ko.pureComputed(function() {
+  self.allowedVariables = ko.pureComputed(function () {
     var allowedVariables = []
-    self.variables().some(function(value) {
+    self.variables().some(function (value) {
       allowedVariables.push(value.key)
     })
 
     return allowedVariables
   });
 
-  self.duplicateProfile = function() {
+  self.duplicateProfile = function () {
     var copyName = preventDuplicateProfileNames(self.profile(), null)
 
     var newProfile = ko.mapping.fromJS(ko.toJS(self.profileObject))
@@ -39,7 +38,7 @@ function ProfileViewModel(params) {
     self.activeProfileName(copyName)
   }
 
-  self.editProfileName = function() {
+  self.editProfileName = function () {
     var newName = self.newProfileName()
 
     if (newName == self.profile()) {
@@ -57,11 +56,11 @@ function ProfileViewModel(params) {
     self.activeProfileName(newName)
   }
 
-  self.exportProfileData = ko.pureComputed(function() {
+  self.exportProfileData = ko.pureComputed(function () {
     return "data:text/json;charset=utf-8," + encodeURIComponent(ko.toJSON(self.profileObject))
   });
 
-  self.exportProfileName = ko.pureComputed(function() {
+  self.exportProfileName = ko.pureComputed(function () {
     return self.profile() + ".json"
   });
 }

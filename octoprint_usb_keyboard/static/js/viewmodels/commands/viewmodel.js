@@ -2,7 +2,6 @@ function CommandsViewModel(params) {
   var self = this
   ShowsInfo.call(self)
 
-  // Lockable.call(self, "commands")
   //
   // console.log("CommandsViewModel raw", params)
   // console.log("CommandsViewModel self", self)
@@ -12,11 +11,11 @@ function CommandsViewModel(params) {
   self.profileNames = params.profileNames
   self.allowedVariables = params.allowedVariables
 
-  self.createCommand = function() {
+  self.createCommand = function () {
     var newCommand = "NEW COMMAND"
     var dupeCommand = null;
 
-    self.commands().some(function(value) {
+    self.commands().some(function (value) {
       if (value.key() == newCommand) {
         dupeCommand = value;
         return true;
@@ -31,9 +30,9 @@ function CommandsViewModel(params) {
       self.commands.unshift(
         ko.mapping.fromJS(
           {
-            "key":newCommand,
-            "alias":null,
-            "value":{"pressed":[], "released":[], "variables":[]}
+            "key": newCommand,
+            "alias": null,
+            "value": { "pressed": [], "released": [], "variables": [] }
           }
         )
       );
