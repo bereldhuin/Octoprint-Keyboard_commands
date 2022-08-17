@@ -21,7 +21,7 @@ plugin_version = "0.2.6"
 plugin_description = """Plugin to enable controlling a connected 3D printer with a USB keyboard"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Barrett Ford"
+plugin_author = "Bereldhuin"
 
 # The plugin's author's mail address.
 plugin_author_email = "barrettford@gmail.com"

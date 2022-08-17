@@ -1,7 +1,7 @@
 /*
  * Helper interfaces for the Usb Keyboard view model
  *
- * Author: Barrett Ford
+ * Author: Bereldhuin
  * License: AGPLv3
  */
 

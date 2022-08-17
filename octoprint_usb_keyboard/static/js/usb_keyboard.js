@@ -1,7 +1,7 @@
 /*
  * View model for OctoPrint-Usb_keyboard
  *
- * Author: Barrett Ford
+ * Author: Bereldhuin
  * License: AGPLv3
  */
 
