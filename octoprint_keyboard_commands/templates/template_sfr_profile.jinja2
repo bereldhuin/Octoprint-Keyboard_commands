@@ -46,13 +46,13 @@
   <table>
     <tr>
       <td><input placeholder="Enter name..." data-bind="textInput: newProfileName, "/></td>
-      <td><button class="btn btn-default fa fa-pencil" data-bind="click: editProfileName, "></button></td>
-      <td><button class="btn btn-default fa fa-files-o" data-bind="click: duplicateProfile, "></button></td>
-      <td><a class="btn btn-default fa fa-download" data-bind="attr: {href: exportProfileData(), download: exportProfileName()}"></a></td>
-      <td><button class="btn btn-danger" data-bind="click: deleteSelf, ">{{ _('-') }}</button></td>
+      <td><button class="btn btn-default fa fa-pencil" data-bind="click: editProfileName, " title="Edit profile name"></button></td>
+      <td><button class="btn btn-default fa fa-files-o" data-bind="click: duplicateProfile, " title="Duplicate profile"></button></td>
+      <td><a class="btn btn-default fa fa-download" data-bind="attr: {href: exportProfileData(), download: exportProfileName()}" title="Download Profile configuration"></a></td>
+      <td><button class="btn btn-danger" data-bind="click: deleteSelf, " title="Delete this profile">{{ _('-') }}</button></td>
     </tr>
   </table>
-  <textarea class="profileDescription" placeholder="Enter a description here..." maxlength=2000 data-bind="textInput: description, attr: {rows: description() == null ? 1 : Math.ceil(description().length / 70) }"></textarea>
+  Description: <textarea class="profileDescription" placeholder="Enter a description here..." maxlength=2000 data-bind="textInput: description, attr: {rows: description() == null ? 1 : Math.ceil(description().length / 70) }"></textarea>
   <br>
 
   <hr>

@@ -16,22 +16,24 @@
   Keyboard Commands Settings <button class="btn btn-warning" style="float:right" data-bind="click: configureDevice">{{ _('Device listener configuration') }}</button>
 </h2>
 
+<!-- Available profile -->
 <table>
   <thead>
     <tr>
-      <td><strong>Active Profile:</strong></td>
+      <td><strong>Available profiles:</strong></td>
       <td><select class="profileSelect" data-bind="options: profileNames, value: activeProfileName"></select></td>
-      <td><button class="btn btn-primary" data-bind="click: createProfile">{{ _('+') }}</button></td>
+      <td><button class="btn btn-primary" title="Add new profile" data-bind="click: createProfile">{{ _('+') }}</button></td>
       <td><input id="uploadButton" type="file" data-bind="file: {data: fileData, name: fileName, allowed:'application/json'}" hidden=true>
-          <label class="btn btn-default fa fa-upload" for="uploadButton"></label></td>
+          <label class="btn btn-default fa fa-upload" for="uploadButton" title="Upload existing template"></label></td>
       <td><button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></td>
     </tr>
   </thead>
 </table>
 
+<!-- Available profile help -->
 <div data-bind="visible: showingInfo">
   <hr>
-  <p><b>USB Keyboard Plugin Settings</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
+  <p><b>Keyboard Commands Plugin Settings</b>&emsp;<button class="btn" data-bind="css: infoClass, click: toggleInfo"></button></p>
   <ul>
     <li>
       <select class="profileSelect" data-bind="options: profileNames"></select> allows you to select the active profile.
@@ -59,7 +61,7 @@
 </div>
 
 <hr>
-
+<!-- Device listener configuration -->
 <div data-bind="foreach: profiles">
   <sfr-profile params='profileObject: $data, profileArray: $parent.profiles, profileNames: $parent.profileNames, activeProfileName: $parent.activeProfileName' data-bind="visible: $data.key() == $parent.activeProfileName()"></sfr-profile>
 </div>
