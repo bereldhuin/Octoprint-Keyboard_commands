@@ -438,7 +438,7 @@ class Keyboard_commandsPlugin(octoprint.plugin.StartupPlugin,
       self._profile_names.append(profile_name)
 
   def on_after_startup(self):
-    self._logger.info("USB Keyboard loading")
+    self._logger.info("Keyboard Commands loading")
 
     self._active_listening = False
     self.load_settings()
@@ -971,7 +971,7 @@ class Keyboard_commandsPlugin(octoprint.plugin.StartupPlugin,
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-__plugin_name__ = "USB Keyboard"
+__plugin_name__ = "Keyboard Commands"
 
 # Starting with OctoPrint 1.4.0 OctoPrint will also support to run under Python 3 in addition to the deprecated
 # Python 2. New plugins should make sure to run under both versions for now. Uncomment one of the following

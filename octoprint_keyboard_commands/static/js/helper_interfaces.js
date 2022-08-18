@@ -1,5 +1,5 @@
 /*
- * Helper interfaces for the Usb Keyboard view model
+ * Helper interfaces for the Keyboard Commands view model
  *
  * Author: Bereldhuin
  * License: AGPLv3
